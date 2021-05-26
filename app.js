@@ -1,7 +1,9 @@
 import express from 'express';
-import homeRoute from './src/routes/homeRoute';
 import dotenv from 'dotenv';
 dotenv.config();
+
+import homeRoute from './src/routes/homeRoute';
+import userRoute from './src/routes/userRoute';
 
 import './src/database';
 
@@ -14,6 +16,7 @@ class App {
 
     routes(){
         this.app.use('/', homeRoute);
+        this.app.use('/users', userRoute);
     };
 
     middlewares(){
