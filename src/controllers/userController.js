@@ -1,4 +1,3 @@
-const { username } = require('../config/database');
 const User = require('./../models/userModel');
 
 class UserController{
@@ -32,13 +31,13 @@ class UserController{
 
     async update(req, res){
         try{
-            if(!req.params.id) return res.status(400).send("missing id");
             
-            const user = await User.findByPk(req.params.id);
+            const user = await User.findByPk(req.userId);
 
             if (!user) return res.status(400).send("user doesn't exist");
 
             const updatedUser = await user.update(req.body);
+
             res.json(updatedUser);
         } catch(e){
             //console.log(e);
@@ -48,14 +47,13 @@ class UserController{
 
     async delete(req, res){
         try{
-            if(!req.params.id) return res.status(400).send('missing id');
 
-            const user = await User.findByPk(req.params.id);
+            const user = await User.findByPk(req.userId);
 
             if(!user) return res.status(400).send('unexistent user');
 
             const deleted = await user.destroy();
-            res.send(user);
+            res.send(deleted);
         } catch(e){
             res.send(e);
         }
