@@ -6,6 +6,7 @@ import homeRoute from './src/routes/homeRoute';
 import userRoute from './src/routes/userRoute';
 import tokenRoute from './src/routes/tokenRoute';
 import studentRoute from './src/routes/studentRoute';
+import imageRoute from './src/routes/imageRoute';
 
 import './src/database';
 
@@ -21,6 +22,7 @@ class App {
         this.app.use('/users', userRoute);
         this.app.use('/token', tokenRoute);
         this.app.use('/students', studentRoute);
+        this.app.use('/images', imageRoute);
     };
 
     middlewares(){
