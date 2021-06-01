@@ -1,4 +1,5 @@
 const Student = require('./../models/studentModel');
+const Photo = require('./../models/photoModel');
 
 class StudentController{
 
@@ -8,12 +9,24 @@ class StudentController{
         res.send('user deleted');
     }
     async index(req, res) {
-        const students = await Student.findAll();
+        const students = await Student.findAll({
+            attributes: ['id', 'name', 'last_name', 'email', 'birthday'],
+            include: {
+                model: Photo,
+                attributes: ['filename']
+            }
+        });
         res.send(students);
     };
 
     async show(req, res) {
-        const student = await Student.findByPk(req.params.id);
+        const student = await Student.findByPk(req.params.id, {
+            attributes: ['id', 'name', 'last_name', 'email', 'birthday'],
+            include: {
+                model: Photo,
+                attributes: ['filename']
+            }
+        });
 
         if (!student) return res.status(400).send('unexistent student');
 

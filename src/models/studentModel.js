@@ -48,4 +48,8 @@ module.exports = class Student extends Model{
             sequelize
         });
     };
+
+    static associate(models){
+        this.hasMany(models.Photo, {foreignKey: 'student_id'});
+    }
 };

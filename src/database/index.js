@@ -5,9 +5,12 @@ const connection = new Sequelize(dbconfig);
 
 const Student = require('./../models/studentModel');
 const User = require('./../models/userModel');
+const Photo = require('./../models/photoModel');
 
-const model = [Student, User];
+const models = [Student, User, Photo];
 
-model.forEach((model) => {
+models.forEach((model) => {
     model.init(connection);
 });
+
+models.forEach((model) => model.associate && model.associate(connection.models));
